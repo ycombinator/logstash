@@ -1,5 +1,5 @@
 PATH
-  remote: /Users/ph/es/logstash
+  remote: .
   specs:
     logstash (2.0.0.dev-java)
       cabin (>= 0.7.0)
