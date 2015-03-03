@@ -1,6 +1,8 @@
 require 'clamp'
 require 'logstash/namespace'
 require 'logstash/pluginmanager/util'
+require "logstash/environment"
+require "logstash/bundler"
 require 'rubygems/spec_fetcher'
 
 class LogStash::PluginManager::List < Clamp::Command
@@ -15,8 +17,7 @@ class LogStash::PluginManager::List < Clamp::Command
   end
 
   def execute
-    require 'logstash/environment'
-    LogStash::Environment.bundler_setup!
+    LogStash::Bundler.setup!
 
     Gem.configuration.verbose = false
 

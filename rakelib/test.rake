@@ -1,7 +1,9 @@
+require "logstash/environment"
+
 namespace "test" do
   def run_rspec(*args)
-    require "logstash/environment"
-    LogStash::Environment.bundler_setup!({:without => []})
+    require "logstash/bundler"
+    LogStash::Bundler.setup!({:without => []})
     require "rspec/core/runner"
     require "rspec"
     RSpec::Core::Runner.run([*args])
@@ -16,7 +18,7 @@ namespace "test" do
   end
 
   task "plugins" do
-    run_rspec("--order", "rand", Rake::FileList[File.join(ENV["GEM_HOME"], "gems/logstash-*/spec/{input,filter,codec,output}s/*_spec.rb")])
+    run_rspec("--order", "rand", Rake::FileList[File.join(LogStash::Environment.logstash_gem_home, "gems/logstash-*/spec/{input,filter,codec,output}s/*_spec.rb")])
   end
 
   task "install-core" => ["bootstrap", "plugin:install-core", "plugin:install-development-dependencies"]
