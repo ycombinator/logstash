@@ -73,6 +73,7 @@ module LogStash
       ::Bundler.settings[:path] = LogStash::Environment::BUNDLE_DIR
       ::Bundler.settings[:gemfile] = LogStash::Environment::GEMFILE_PATH
       ::Bundler.settings[:without] = options[:without].join(":")
+      ::Bundler.settings[:cache_path] = "#{Pathname.new(::Bundler.settings.path).relative_path_from(Pathname.new(LogStash::Environment::LOGSTASH_HOME))}/cache"
 
       try = 0
 
