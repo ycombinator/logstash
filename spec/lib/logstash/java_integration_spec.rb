@@ -50,7 +50,13 @@ describe "Java integration" do
     end
   end
 
-  context "Java::JavaUtil::Collection" do
+ context "Java::JavaUtil::Map" do
+   it "should support merging" do
+     expect(Java::JavaUtil::LinkedHashMap.new({:a => 1, :b => 2}).merge({:b => 3, :c => 4})).to eq({:a => 1, :b => 3, :c => 4})
+   end
+ end
+
+ context "Java::JavaUtil::Collection" do
     subject{Java::JavaUtil::ArrayList.new(initial_array)}
 
     context "when deleting a unique instance" do

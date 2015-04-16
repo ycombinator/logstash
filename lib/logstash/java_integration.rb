@@ -33,6 +33,11 @@ end
 # releavant JRuby files:
 # https://github.com/jruby/jruby/blob/master/core/src/main/ruby/jruby/java/java_ext/java.util.rb
 # https://github.com/jruby/jruby/blob/master/core/src/main/java/org/jruby/java/proxies/MapJavaProxy.java
+
+
+# below patches to LinkedHashMap and HashMap must be done directly on the classes
+# using a module mixin does not work. not sure how we could DRY this.
+
 class Java::JavaUtil::LinkedHashMap
   def has_key?(key)
     self.containsKey(key)
@@ -40,6 +45,45 @@ class Java::JavaUtil::LinkedHashMap
   alias_method :include?, :has_key?
   alias_method :member?, :has_key?
   alias_method :key?, :has_key?
+
+  # Java 8 Map implements a merge method with a different signature from
+  # the Ruby Hash#merge. see https://github.com/jruby/jruby/issues/1249
+  if ENV_JAVA['java.specification.version'] >= '1.8'
+    def merge(other)
+      # commented is a Java implementation, need to bench to see which is most efficient
+      # and if this implementation respects the Ruby merge contract.
+      #
+      # duped = Java::JavaUtil::LinkedHashMap.new(self)
+      # duped.putAll(Java::JavaUtil::LinkedHashMap.new(other))
+      # duped
+
+      dup.merge!(other)
+    end
+  end
+end
+
+class Java::JavaUtil::HashMap
+  def has_key?(key)
+    self.containsKey(key)
+  end
+  alias_method :include?, :has_key?
+  alias_method :member?, :has_key?
+  alias_method :key?, :has_key?
+
+  # Java 8 Map implements a merge method with a different signature from
+  # the Ruby Hash#merge. see https://github.com/jruby/jruby/issues/1249
+  if ENV_JAVA['java.specification.version'] >= '1.8'
+    def merge(other)
+      # commented is a Java implementation, need to bench to see which is most efficient
+      # and if this implementation respects the Ruby merge contract.
+      #
+      # duped = Java::JavaUtil::LinkedHashMap.new(self)
+      # duped.putAll(Java::JavaUtil::LinkedHashMap.new(other))
+      # duped
+
+      dup.merge!(other)
+    end
+  end
 end
 
 module java::util::Map
