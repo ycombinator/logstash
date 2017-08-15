@@ -1,0 +1,27 @@
+id: netflow
+label: NetFlow
+shipper: logstash
+is_pull: false
+configuration:
+  variables:
+    - id: input.udp.port
+      label: Input UDP port
+      data_type: number
+      default: 2055
+dashboards:
+  - label: 'Netflow: Flow Exporters'
+  - label: 'Netflow: Top-N'
+  - label: 'Netflow: Traffic Analysis'
+  - label: 'Netflow: Conversation Partners'
+  - label: 'Netflow: Overview'
+    image_url: /plugins/modules/images/modules/netflow/dashboards/overview.png
+  - label: 'Netflow: Geo Location'
+    image_url: /plugins/modules/images/modules/arcsight/dashboards/overview.png
+  - label: 'Netflow: Flow Records'
+  - label: 'NetFlow: Autonomous Systems'
+logo_image_url: /plugins/modules/icons/modules/cisco.svg
+short_description: Ingest and analysze NetFlow network traffic data
+long_description: |
+  NetFlow is a feature that was introduced on Cisco routers that provides the ability to collect IP network traffic as it enters or exits an interface. By analyzing the data provided by NetFlow, a network administrator can determine things such as the source and destination of traffic, class of service, and the causes of congestion.
+
+  To analyze NetFlow data with the Elastic stack, run a Logstash instance as a NetFlow Collector and start sending NetFlow data to it on the designated UDP port. Then visit Kibana to analyze your NetFlow data using dashboards such as the ones shown here.
