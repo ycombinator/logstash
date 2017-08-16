@@ -10,15 +10,23 @@ configuration:
       default: 2055
 dashboards:
   - label: 'Netflow: Flow Exporters'
+    id: 04157d70-6591-11e7-bfc3-d74b7bb89482
   - label: 'Netflow: Top-N'
+    id: 0809c1f0-6719-11e7-b5b8-29fbded8e37c
   - label: 'Netflow: Traffic Analysis'
+    id: 10584050-6234-11e7-8236-19b4b4941e22
   - label: 'Netflow: Conversation Partners'
+    id: 310ae6e0-2fdf-11e7-9d02-3f49bde5c1d5
   - label: 'Netflow: Overview'
+    id: 653cf1e0-2fd2-11e7-99ed-49759aed30f5
     image_url: /plugins/modules/images/modules/netflow/dashboards/overview.png
   - label: 'Netflow: Geo Location'
+    id: a932b600-2fd2-11e7-99ed-49759aed30f5
     image_url: /plugins/modules/images/modules/arcsight/dashboards/overview.png
   - label: 'Netflow: Flow Records'
+    id: ca480720-2fdf-11e7-9d02-3f49bde5c1d5
   - label: 'NetFlow: Autonomous Systems'
+    id: d7e31d40-6589-11e7-bfc3-d74b7bb89482
 logo_image_url: /plugins/modules/icons/modules/cisco.svg
 short_description: Ingest and analysze NetFlow network traffic data
 long_description: |
