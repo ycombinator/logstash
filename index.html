@@ -24,6 +24,10 @@
       #content li {
         line-height: 30px;
       }
+
+      #content nav a {
+        margin-left: 10px;
+      }
     </style>
   </head>
   <body>
@@ -87,11 +91,24 @@
       function displayOnPage(stateGroups) {
         const contentEl = document.getElementById('content');
         contentEl.innerHTML = '';
+
+        // Quick nav to state sections
+        const navEl = document.createElement('nav');
+        navEl.appendChild(document.createTextNode('Jump to state: '));
+        Object.keys(stateGroups).forEach(state => {
+          const stateLinkEl = document.createElement('a');
+          stateLinkEl.setAttribute('href', `#state-${state}`);
+          stateLinkEl.appendChild(document.createTextNode(state));
+          navEl.appendChild(stateLinkEl);
+        });
+        contentEl.appendChild(navEl);
+
         Object.keys(stateGroups).forEach(state => {
 
           // State heading
           const stateHeadingEl = document.createElement('h2');
           stateHeadingEl.appendChild(document.createTextNode(state));
+          stateHeadingEl.setAttribute('id', `state-${state}`);
           contentEl.appendChild(stateHeadingEl);
 
           // List of plugins in group
