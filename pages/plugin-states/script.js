@@ -108,7 +108,7 @@ function getCachedStateGroups() {
     return undefined;
   }
 
-  const cachedForInMs = Date.now() - new Date(cachedOn);
+  const cachedForInMs = Date.now() - new Date(parseInt(cachedOn));
   if (cachedForInMs > 60 * 60 * 1000) {
     localStorage.clear();
     return undefined;
